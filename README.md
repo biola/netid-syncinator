@@ -1,5 +1,5 @@
-NetID Syncinator
-=============
+NetID Syncinator [![Build Status](https://travis-ci.org/biola/netid-syncinator.svg?branch=master)](https://travis-ci.org/biola/netid-syncinator)
+================
 
 NetID Syncinator creates unique NetID usernames for certain users in [trogdir-api](https://github.com/biola/trogdir-api).
 
