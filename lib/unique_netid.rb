@@ -17,7 +17,7 @@ class UniqueNetID
       i ||= nil
       try_netid = "#{netid_base}#{i}"
 
-      if NetID.new(try_netid).available?
+      if NetID.where(netid: try_netid).none?
         netid = try_netid
         break
       end

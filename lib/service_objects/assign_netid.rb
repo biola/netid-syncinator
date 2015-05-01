@@ -7,6 +7,7 @@ module ServiceObjects
 
       response = Trogdir::APIClient::IDs.new.create(uuid: change.person_uuid, identifier: unique_netid, type: ID_TYPE).perform
       if response.success?
+        NetID.create(netid: unique_netid)
         :create
       else
         raise TrogdirAPIError, response.parse['error']

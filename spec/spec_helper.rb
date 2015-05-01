@@ -13,4 +13,5 @@ NetIDSyncinator.initialize!
 Dir['./spec/support/*.rb'].each { |f| require f }
 
 RSpec.configure do |config|
+  Mongoid.load! File.expand_path('../config/mongoid.yml',  __FILE__)
 end

@@ -5,6 +5,11 @@ module NetIDSyncinator
 
     RailsConfig.load_and_set_settings('./config/settings.yml', "./config/settings.#{env}.yml", './config/settings.local.yml')
 
+    mongoid_yml_path = File.expand_path('../../config/mongoid.yml',  __FILE__)
+    if File.exists? mongoid_yml_path
+      Mongoid.load! mongoid_yml_path
+    end
+
     if defined? Raven
       Raven.configure do |config|
         config.dsn = Settings.sentry.url
