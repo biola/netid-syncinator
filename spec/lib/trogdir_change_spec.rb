@@ -13,7 +13,14 @@ describe TrogdirChange do
   end
 
   describe '#preferred_name' do
-    it { expect(subject.preferred_name).to eql 'Bob'}
+    context 'without a preferred name' do
+      let(:hash) { JSON.parse(File.read('./spec/fixtures/create_user_without_netid.json')) }
+      it { expect(subject.preferred_name).to eql 'Robert'}
+    end
+
+    context 'with a preferred name' do
+      it { expect(subject.preferred_name).to eql 'Bob'}
+    end
   end
 
   describe '#last_name' do

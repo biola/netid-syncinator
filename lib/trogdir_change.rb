@@ -14,7 +14,7 @@ class TrogdirChange
   end
 
   def preferred_name
-    all_attrs['preferred_name']
+    all_attrs['preferred_name'].presence || all_attrs['first_name']
   end
 
   def last_name
