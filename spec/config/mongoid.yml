@@ -1,0 +1,6 @@
+test:
+  sessions:
+    default:
+      database: netid_syncinator_test
+      hosts:
+        - localhost:27017
