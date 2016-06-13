@@ -1,10 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'activesupport'
-gem 'logging', '~> 1.8' # 2.0 is not compatible with blazing
-# beta1 fixes this issue https://github.com/railsconfig/rails_config/pull/86
-gem 'mongoid'
-gem 'rails_config', '~> 0.5.0.beta1'
+gem 'config', '~> 1.2'
+gem 'mongoid', '~> 5.1'
 gem 'rake'
 gem 'sidekiq'
 gem 'sidekiq-cron'

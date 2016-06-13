@@ -1,25 +1,6 @@
 development:
-  sessions:
+  clients:
     default:
       database: netid_syncinator_development
       hosts:
         - localhost:27017
-
-staging:
-  sessions:
-    default:
-      database: netid_syncinator
-      hosts:
-        - mongo1a.staging.biola.edu:27017
-        - mongo1b.staging.biola.edu:27017
-      username: netid_syncinator
-      password: "*************"
-
-production:
-  sessions:
-    default:
-      database: netid_syncinator
-      hosts:
-        - mongo1.staging.biola.edu:27017
-      username: netid_syncinator
-      password: "*************"
