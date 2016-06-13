@@ -3,7 +3,7 @@ module NetIDSyncinator
     env = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || :development
     ENV['RACK_ENV'] ||= env.to_s
 
-    RailsConfig.load_and_set_settings('./config/settings.yml', "./config/settings.#{env}.yml", './config/settings.local.yml')
+    Config.load_and_set_settings('./config/settings.yml', "./config/settings.#{env}.yml", './config/settings.local.yml')
 
     mongoid_yml_path = File.expand_path('../../config/mongoid.yml',  __FILE__)
     if File.exists? mongoid_yml_path
