@@ -3,6 +3,6 @@
 ##############################
 
 HandleChanges:
-  cron: "45 * * * *"
+  cron: "50 * * * *"
   class: "Workers::HandleChanges"
   queue: default
