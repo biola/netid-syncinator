@@ -7,6 +7,7 @@ describe Workers::HandleChanges do
 
   before do
     response = double(Trogdir::APIClient::ChangeSyncs, success?: success, parse: change_syncs)
+    allow_any_instance_of(Workers::HandleChanges).to receive(:loop).and_yield
     allow_any_instance_of(Workers::HandleChanges).to receive_message_chain(:change_syncs, :start, perform: response)
   end
 
