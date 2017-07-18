@@ -19,7 +19,7 @@ describe Workers::HandleChanges do
     end
   end
 
-  context 'when a trogdir-api error' do
+  xcontext 'when a trogdir-api error' do
     let(:success) { false }
     let(:change_syncs) { {'error' => 'Oopsie!'} }
 
