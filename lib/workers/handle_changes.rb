@@ -16,7 +16,9 @@ module Workers
         loop do
           response = change_syncs.start(limit: 100).perform
           break if response.parse.blank?
-          raise TrogdirAPIError, response.parse['error'] unless response.success?
+          unless response.success?
+            raise TrogdirAPIError, response.parse['error']
+          end
 
           hashes += Array(response.parse)
         end
@@ -25,20 +27,20 @@ module Workers
       end
 
       # Keep processing batches until we run out
-      changes_processed = if hashes.any?
-        Log.info "[#{jid}] Processing #{hashes.length} changes"
+      changes_processed =
+        if hashes.any?
+          Log.info "[#{jid}] Processing #{hashes.length} changes"
 
-        hashes.each do |hash|
-          Workers::HandleChange.perform_async(hash)
+          hashes.each do |hash|
+            Workers::HandleChange.perform_async(hash)
+          end
         end
-      end
 
       Log.info "[#{jid}] Finished job"
 
       # Run the worker again since there is probably more to process
-      if changes_processed
-        HandleChanges.perform_async
-      end
+      return unless changes_processed
+      HandleChanges.perform_async
     end
 
     private

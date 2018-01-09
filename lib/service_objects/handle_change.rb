@@ -10,9 +10,12 @@ module ServiceObjects
         end
 
         action = actions.first || :skip
-        Log.info "No changes needed for person #{change.person_uuid}" if actions.empty?
-        Workers::ChangeFinish.perform_async change.sync_log_id, action
 
+        if actions.empty?
+          Log.info "No changes needed for person #{change.person_uuid}"
+        end
+
+        Workers::ChangeFinish.perform_async change.sync_log_id, action
       rescue StandardError => err
         Workers::ChangeError.perform_async change.sync_log_id, err.message
         Raven.capture_exception(err) if defined? Raven

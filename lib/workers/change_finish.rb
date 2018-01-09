@@ -4,7 +4,9 @@ module Workers
     sidekiq_options retry: false
 
     def perform(sync_log_id, action_taken)
-      response = trogdir.finish(sync_log_id: sync_log_id, action: action_taken).perform
+      response = trogdir.finish(
+        sync_log_id: sync_log_id, action: action_taken
+      ).perform
       raise "Error: #{response.parse['error']}" unless response.success?
     end
 

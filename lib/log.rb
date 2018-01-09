@@ -7,8 +7,6 @@ module Log
     end
   end
 
-  private
-
   def self.logger
     @logger ||= Logger.new(log_file).tap do |logger|
       logger.formatter = Logger::Formatter.new
@@ -19,7 +17,7 @@ module Log
     file = File.expand_path('../../log/output.log', __FILE__)
     dir = File.dirname(file)
 
-    Dir.mkdir(dir) unless Dir.exists?(dir)
+    Dir.mkdir(dir) unless Dir.exist?(dir)
 
     file
   end

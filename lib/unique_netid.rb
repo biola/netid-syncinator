@@ -22,7 +22,7 @@ class UniqueNetID
         break
       end
 
-      raise RuntimeError, 'loop went on for too long' if i.to_i > 1000
+      raise 'loop went on for too long' if i.to_i > 1000
 
       i = i.to_i + 1
     end
@@ -37,6 +37,6 @@ class UniqueNetID
   end
 
   def netid_base
-    "#{first_name}#{last_initial}".downcase.gsub /[^a-z]/, ''
+    "#{first_name}#{last_initial}".downcase.gsub(/[^a-z]/, '')
   end
 end

@@ -19,7 +19,7 @@ module ServiceObjects
     end
 
     def self.ignore?(change)
-      self.new(change).ignore?
+      new(change).ignore?
     end
   end
 end

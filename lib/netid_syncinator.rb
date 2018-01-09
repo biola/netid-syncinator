@@ -3,12 +3,14 @@ module NetIDSyncinator
     env = ENV['RACK_ENV'] || ENV['RAILS_ENV'] || :development
     ENV['RACK_ENV'] ||= env.to_s
 
-    Config.load_and_set_settings('./config/settings.yml', "./config/settings.#{env}.yml", './config/settings.local.yml')
+    Config.load_and_set_settings(
+      './config/settings.yml',
+      "./config/settings.#{env}.yml",
+      './config/settings.local.yml'
+    )
 
-    mongoid_yml_path = File.expand_path('../../config/mongoid.yml',  __FILE__)
-    if File.exists? mongoid_yml_path
-      Mongoid.load! mongoid_yml_path
-    end
+    mongoid_yml_path = File.expand_path('../../config/mongoid.yml', __FILE__)
+    Mongoid.load! mongoid_yml_path if File.exist? mongoid_yml_path
 
     if defined? Raven
       Raven.configure do |config|
@@ -24,8 +26,8 @@ module NetIDSyncinator
       config.redis = { url: Settings.redis.url, namespace: 'netid-syncinator' }
     end
 
-    schedule_file = "config/schedule.yml"
-    if File.exists?(schedule_file)
+    schedule_file = 'config/schedule.yml'
+    if File.exist?(schedule_file)
       Sidekiq::Cron::Job.load_from_hash YAML.load_file(schedule_file)
     end
 
