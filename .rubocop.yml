@@ -102,3 +102,4 @@ Style/FrozenStringLiteralComment:
 AllCops:
   Exclude:
     - spec/*/*.rb
+    - spec/*/*/*.rb

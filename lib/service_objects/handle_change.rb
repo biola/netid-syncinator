@@ -4,9 +4,11 @@ module ServiceObjects
       actions = []
 
       begin
+        # assign netid and then create a university account for the person.
         unless AssignNetID.ignore?(change)
           Log.info "Assigning NetID for person #{change.person_uuid}"
           actions << AssignNetID.new(change).call
+          CreateUniversityAccount.new(change).call
         end
 
         action = actions.first || :skip

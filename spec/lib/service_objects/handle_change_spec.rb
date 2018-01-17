@@ -10,6 +10,7 @@ describe ServiceObjects::HandleChange do
 
     it 'does not call any service objects' do
       expect_any_instance_of(ServiceObjects::AssignNetID).to_not receive(:call)
+      expect_any_instance_of(ServiceObjects::CreateUniversityAccount).to_not receive(:call)
       expect(Workers::ChangeFinish).to receive(:perform_async).with(kind_of(String), :skip)
       expect(Workers::ChangeError).to_not receive(:perform_async)
 
@@ -20,8 +21,9 @@ describe ServiceObjects::HandleChange do
   context 'when affiliation added' do
     let(:change_hash) { JSON.parse(File.read('./spec/fixtures/create_user_without_netid.json')) }
 
-    it 'calls AssignNetID' do
+    it 'calls AssignNetID and CreateUniversityAccount' do
       expect_any_instance_of(ServiceObjects::AssignNetID).to receive(:call).and_return(:create)
+      expect_any_instance_of(ServiceObjects::CreateUniversityAccount).to receive(:call).and_return(:create)
       expect(Workers::ChangeFinish).to receive(:perform_async).with(kind_of(String), :create)
       expect(Workers::ChangeError).to_not receive(:perform_async)
 
@@ -34,6 +36,7 @@ describe ServiceObjects::HandleChange do
 
     it 'calls SyncGoogleAccount' do
       expect_any_instance_of(ServiceObjects::AssignNetID).to_not receive(:call)
+      expect_any_instance_of(ServiceObjects::CreateUniversityAccount).to_not receive(:call)
       expect(Workers::ChangeFinish).to receive(:perform_async).with(kind_of(String), :skip)
       expect(Workers::ChangeError).to_not receive(:perform_async)
 
